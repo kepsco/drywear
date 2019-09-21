@@ -1,53 +1,58 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styles from "../index.css";
+const axios = require('axios');
+
+
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name : ["D.R.Y. WEAR"],
-      outfits : ["top","bottom","shoe"]
-      
+      outfits : [],
+      mainOutfit: [],
     }
   }
 
   componentDidMount() {
-    this.setState ({
-      outfits : [{top: "topObj", bottom: "bottomObj", shoe: "shoeObj"}, {top: "top", bottom: "bottom", shoe: "shoe"}, {top: "top", bottom: "bottom", shoe: "shoe"},
-      {top: "top", bottom: "bottom", shoe: "shoe"}, {top: "top", bottom: "bottom", shoe: "shoe"}]
-    })
+   axios.get('/api/outfits')
+   .then(response => {
+     console.log(response.data);
+     this.setState ({
+       outfits: response.data
+     })
+   }).catch(error => {
+     console.log(error, '- Error');
+   })
   }
-  //history()
+
+
   render() {
-    const otherBar = this.state.outfits.map( elem => {
-        return (
-          <div className = "items">  
-          <Main top= {elem.top} bottom={elem.bottom} shoe={elem.shoe}/>
-          </div>
-           )    
-    })
+    const outfits = []
+    if(this.state.outfits.length > 0){
+      this.state.outfits.map(x => {
+        console.log(x.top.image)
+        outfits.push(<Outfit item={x} />)
+      })
+    }
+
     return (
       <div className = "container">
-         <h1>"Dry Wear"</h1>
-         <Main top = {this.state.outfits[0].top} bottom={this.state.outfits[0].bottom} shoe={this.state.outfits[0].shoe}/>
-          <button>
-           SELECT OUTFIT
-         </button> 
-    <div className = "otherOutfits">
-    {otherBar}
-    </div>
+        <div className = "otherOutfits">
+          {outfits}
+        </div>
       </div>
     );
   }
 }
-function Main(props) {
+
+function Outfit(props) {
   return (
-    <div className = "mainoutfit"> 
-      <h3>{props.top}</h3> 
-      <h3>{props.bottom}</h3>
-      <h3>{props.shoe}</h3>
+    <div className="outfit-block">
+      <img src={props.item.top.image} />
+      <img src={props.item.bottom.image} className="bottom"/>
+      <img src={props.item.shoes.image}/>
     </div>
   )
 }

@@ -10,7 +10,24 @@ body {
 }
 
 .items{
-color:green;
-padding: 30px;
-margin : 15px;
+  color:green;
+  padding: 30px;
+  margin : 15px;
+}
+
+img {
+  max-width: 150px;
+}
+
+.outfit-block {
+  margin: 30px;
+  padding-top: 25px;
+  border: solid #efe0e0 5px;
+  box-shadow: 5px 10px #f3e77d;
+  transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.outfit-block:hover {
+  box-shadow: 5px 10px #333;
 }

@@ -13,7 +13,7 @@ const store = createStore(
 
 store.subscribe(() => {
   saveState({
-    item: store.getState().items,
+    // item: store.getState().items,
   });
 });
 
