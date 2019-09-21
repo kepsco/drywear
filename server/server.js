@@ -15,9 +15,9 @@ app.get('/api/items', itemsController.getItems, (req, res) => {
   res.status(200).json(res.locals.items);
 });
 
-app.post('/api/item', itemsController.addItem, (req, res) => {
-  res.status(200).json(res.locals);
-});
+// app.post('/api/item', itemsController.addItem, (req, res) => {
+//   res.status(200).json(res.locals);
+// });
 
 // app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
 //   res.status(200).json(res.locals);
@@ -25,7 +25,7 @@ app.post('/api/item', itemsController.addItem, (req, res) => {
 
 
 // Join tables to return all items information to display on frontend
-// 
+//
 // app.get('/api/history', historyController.getHistory, (req, res) => {
 //   res.status(200).json(res.locals.history);
 // });
