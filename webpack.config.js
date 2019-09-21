@@ -7,14 +7,15 @@ module.exports = {
     './client/index.js',
   ],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '/dist'),
     filename: 'bundle.js',
+    publicPath: path.resolve(__dirname, "/dist")
   },
   devServer: {
     hot: true,
-    publicPath: 'localhost:3000/dist',
+    publicPath: path.resolve(__dirname, '/dist'),
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/': 'http://localhost:3000',
     }
   },
   module: {
