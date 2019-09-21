@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-
+const PORT = 3000;
 
 const itemsController = require('./controllers/itemsController');
 const outfitsController = require('./controllers/outfitsController');
@@ -38,11 +38,27 @@ app.get('/api/outfits', itemsController.availableItems, outfitsController.setOut
  */
 // app.use('/assets', express.static(path.join(__dirname, '/../client/assets')))
 
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../index.html'));
+});
 
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res, next) => {
   res.status(404).send("Sorry can't find that!");
 });
 
+// global error handler
+app.use((err, req, res, next) => {
+  const defaultError = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: 'An error occurred',
+  };
+  console.log('this is err', err)
+  const errObj = Object.assign(defaultError, err);
+  console.error(errObj.log);
+  res.status(errObj.status).json(errObj.message);
+});
+
 // launch our backend into a port
-app.listen(3000, () => console.log(`LISTENING ON PORT 3000`));
+app.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`));

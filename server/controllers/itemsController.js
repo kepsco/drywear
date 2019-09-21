@@ -9,6 +9,7 @@ itemsController.getItems = (req, res, next) => {
     if (err) {
       res.send(err)
       throw err
+      next({log: 'Express error handler caught in itemsController getItems', err})
     }
     res.status(200).json(results)
   })
