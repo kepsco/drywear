@@ -15,23 +15,28 @@ app.get('/api/items', itemsController.getItems, (req, res) => {
   res.status(200).json(res.locals.items);
 });
 
-// app.post('/api/item', itemsController.setItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
-//
+app.post('/api/item', itemsController.addItem, (req, res) => {
+  res.status(200).json(res.locals);
+});
+
 // app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
 //   res.status(200).json(res.locals);
 // });
 
+
+// Join tables to return all items information to display on frontend
+// 
 // app.get('/api/history', historyController.getHistory, (req, res) => {
 //   res.status(200).json(res.locals.history);
+// });
+//
+// app.post('/api/history', historyController.saveOutfit, itemsController.updateItems, (req, res) => {
+//   res.status(200).send('Saved outfit and update items date!';
 // });
 
 app.get('/api/outfits', itemsController.availableItems, outfitsController.setOutfits, (req, res) => {
   res.status(200).json(res.locals.outfits);
 });
-
-//  outfitsController.setOutfits,
 
 /**
  * handle requests for static files

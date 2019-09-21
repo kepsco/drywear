@@ -28,4 +28,6 @@ outfitsController.setOutfits = (req, res, next) => {
 }
 
 
+
+
 module.exports = outfitsController;
