@@ -4,7 +4,6 @@ import styles from "../index.css";
 const axios = require('axios');
 
 
-
 class List extends Component {
 
   constructor(props) {

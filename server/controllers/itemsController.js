@@ -5,6 +5,7 @@ const itemsController = {};
 
 
 itemsController.getItems = (req, res, next) => {
+
   pool.query('SELECT * FROM items', (err, results) => {
     if (err) {
       res.send(err)
@@ -15,7 +16,6 @@ itemsController.getItems = (req, res, next) => {
 }
 
 itemsController.availableItems = (req, res, next) => {
-
   pool.query("SELECT * FROM items WHERE type='shoes' AND date < NOW() - INTERVAL '7 days'")
     .then(results => {
       res.locals.items = {};
@@ -33,17 +33,15 @@ itemsController.availableItems = (req, res, next) => {
     .catch(e => console.error(e))
 }
 
-itemsController.updateItems = (req, res, next) => {
+itemsController.updateItemsDate = (req, res, next) => {
 
   const { bottomId, topId, shoesId } = req.body;
 
-
     pool.query("UPDATE items SET date=NOW() WHERE id IN ( bottomId, topId, shoesId )")
-      .then(results => {
-        console.log(results)
-        next();
-      })
-      .catch(e => console.error(e))
+    .then(results => {
+      next();
+    })
+    .catch(e => console.error(e))
 }
 
 

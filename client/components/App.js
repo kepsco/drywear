@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styles from "../index.css";
 const axios = require('axios');
+import Outfit from './Outfit';
 
 
 
@@ -11,19 +12,18 @@ class App extends Component {
     super(props);
     this.state = {
       outfits : [],
-      mainOutfit: [],
     }
   }
 
   componentDidMount() {
+
    axios.get('/api/outfits')
    .then(response => {
-     console.log(response.data);
      this.setState ({
        outfits: response.data
      })
    }).catch(error => {
-     console.log(error, '- Error');
+     console.log(error, '- Get outfit selection');
    })
   }
 
@@ -31,30 +31,22 @@ class App extends Component {
   render() {
     const outfits = []
     if(this.state.outfits.length > 0){
-      this.state.outfits.map(x => {
-        console.log(x.top.image)
-        outfits.push(<Outfit item={x} />)
+      this.state.outfits.map((x, index) => {
+        outfits.push(<Outfit key={index} item={x} />)
       })
     }
 
     return (
-      <div className = "container">
-        <div className = "otherOutfits">
+      <div>
+      <h1>Select an outfit</h1>
+      <div className="container">
+        <div className="outfits-container">
           {outfits}
         </div>
       </div>
+      </div>
     );
   }
-}
-
-function Outfit(props) {
-  return (
-    <div className="outfit-block">
-      <img src={props.item.top.image} />
-      <img src={props.item.bottom.image} className="bottom"/>
-      <img src={props.item.shoes.image}/>
-    </div>
-  )
 }
 
 export default App;

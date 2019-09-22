@@ -28,6 +28,18 @@ outfitsController.setOutfits = (req, res, next) => {
 }
 
 
+outfitsController.saveOutfit = (req, res, next) => {
+
+  const { bottomId, topId, shoesId } = req.body;
+
+  pool.query(`INSERT INTO outfits(top_id, bottom_id, shoes_id) VALUES(${topId}, ${bottomId}, ${shoesId}`, (err, results) => {
+    if (err) {
+      console.log(err);
+    }
+    next();
+  })
+}
+
 
 
 module.exports = outfitsController;
