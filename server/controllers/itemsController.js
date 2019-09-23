@@ -16,15 +16,22 @@ itemsController.getItems = (req, res, next) => {
 }
 
 itemsController.availableItems = (req, res, next) => {
-  pool.query("SELECT * FROM items WHERE type='shoes'")
+
+  const filter = '';
+
+  if (req.body.weather) {
+    const filter = ` AND weather = ${req.body.weather} `;
+  }
+
+  pool.query(`SELECT * FROM items WHERE type='shoes'`)
     .then(results => {
       res.locals.items = {};
       res.locals.items.shoes = results.rows;
-      return pool.query("SELECT * FROM items WHERE type='top' AND date < NOW() - INTERVAL '7 days'")
+      return pool.query(`SELECT * FROM items WHERE type = 'top'${filter}AND date < NOW() - INTERVAL '7 days'`)
     })
     .then(results => {
       res.locals.items.tops = results.rows;
-      return pool.query("SELECT * FROM items WHERE type='bottom' AND date < NOW() - INTERVAL '7 days'")
+      return pool.query(`SELECT * FROM items WHERE type = 'bottom'${filter}AND date < NOW() - INTERVAL '7 days'`)
     })
     .then(results => {
       res.locals.items.bottoms = results.rows;
