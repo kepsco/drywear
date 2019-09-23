@@ -92,5 +92,15 @@ img {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
 
+.select-weather {
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.css-1n7v3ny-option {
+  background-color: #ebebeb;
 }

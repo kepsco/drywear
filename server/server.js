@@ -22,6 +22,10 @@ app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateIte
   res.status(200).send('Saved outfit and updated items date.');
 });
 
+app.post('/api/filterOutfits', itemsController.filterOutfits, outfitsController.setOutfits, (req, res) => {
+  res.status(200).json(res.locals.outfits);
+});
+
 app.get('/api/items', itemsController.getItems, (req, res) => {
   res.status(200).json(res.locals.items);
 });
