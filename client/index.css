@@ -104,3 +104,13 @@ img {
 .css-1n7v3ny-option {
   background-color: #ebebeb;
 }
+.typegroup {
+  display: flex;
+  flex-wrap : wrap;
+  justify-content: center;
+}
+
+.listimage {
+  margin : 20px;
+  
+}
