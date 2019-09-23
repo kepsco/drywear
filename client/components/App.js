@@ -19,6 +19,7 @@ class App extends Component {
 
     axios.get('/api/outfits/today')
     .then(response => {
+      console.log(response)
       this.setState ({
         selected: response.data
       })
@@ -42,7 +43,7 @@ class App extends Component {
     const outfits = []
     if(this.state.outfits.length > 0){
       this.state.outfits.map((x, index) => {
-        outfits.push(<Outfit key={index} item={x} />)
+        outfits.push(<Outfit key={index} item={x} selected={this.state.selected} />)
       })
     }
 

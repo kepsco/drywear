@@ -40,12 +40,15 @@ outfitsController.saveOutfit = (req, res, next) => {
 }
 
 outfitsController.findTodaysOutfit = (req, res, next) => {
-  pool.query(`SELECT * FROM outfits WHERE outfits.date=NOW()`, (err, results) => {
+
+  const today = new Date().toISOString().slice(0,10);
+
+  pool.query(`SELECT * FROM outfits WHERE outfits.date='${today}'`, (err, results) => {
     if (err) {
       console.log(err - ' outfitsController.findTodaysOutfit');
     }
-    console.log(results.rows)
-    if (results.rows.length === 1) res.locals.today = true;
+    if (results.rows === undefined) res.locals.today = false;
+    else if (results.rows.length >= 1) res.locals.today = true;
     else res.locals.today = false;
     next();
   })

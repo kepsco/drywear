@@ -14,29 +14,20 @@ app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => 
   res.status(200).json(res.locals.today);
 });
 
-app.get('/api/items', itemsController.getItems, (req, res) => {
-  res.status(200).json(res.locals.items);
-});
-
-// app.post('/api/item', itemsController.addItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
-
-// app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
-
-// Join tables to return all items information to display on frontend
-app.get('/api/history', historyController.getHistory, (req, res) => {
-  res.status(200).json(res.locals.history);
-});
-
 app.get('/api/outfits', itemsController.availableItems, outfitsController.setOutfits, (req, res) => {
   res.status(200).json(res.locals.outfits);
 });
 
 app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateItemsDate, (req, res) => {
   res.status(200).send('Saved outfit and updated items date.');
+});
+
+app.get('/api/items', itemsController.getItems, (req, res) => {
+  res.status(200).json(res.locals.items);
+});
+
+app.get('/api/history', historyController.getHistory, (req, res) => {
+  res.status(200).json(res.locals.history);
 });
 
 // handle requests for static files
