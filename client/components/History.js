@@ -12,6 +12,8 @@ class History extends Component {
     this.state = {
       prevOutfits: [],
     }
+
+    this.handleDeletePrevOutfit = this.handleDeletePrevOutfit.bind(this)
   }
 
   componentDidMount() {
@@ -25,14 +27,19 @@ class History extends Component {
    })
   }
 
+  handleDeletePrevOutfit(prev) {
+    this.setState({
+      prevOutfits: prev
+    })
+  }
 
   render() {
 
     const prevOutfits = []
-    console.log(this.state.prevOutfits)
+    // console.log(this.state.prevOutfits)
     if (this.state.prevOutfits.length > 0){
       this.state.prevOutfits.map((x, index) => {
-        prevOutfits.push(<PreviousOutfit key={index} item={x} history={this.state.prevOutfits} />)
+        prevOutfits.push(<PreviousOutfit key={index} item={x} handleDeletePrevOutfit={this.handleDeletePrevOutfit} />)
       })
     }
 

@@ -9,13 +9,8 @@ class PreviousOutfit extends Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   prevOutfits: this.props.history,
-    // }
     this.deleteOutfit = this.deleteOutfit.bind(this);
   }
-
-
 
   deleteOutfit(outfit_id, top_id, bottom_id, shoes_id) {
     axios.post('/api/remove', {
@@ -25,9 +20,10 @@ class PreviousOutfit extends Component {
       shoesId: shoes_id,
     })
     .then(response => {
-      this.setState ({
-        prevOutfits: response.data
-      })
+      // this.setState ({
+      //   prevOutfits: response.data
+      // })
+      this.props.handleDeletePrevOutfit(response.data)
       console.log('Outfit deleted!')
     }).catch(error => {
       console.log(error, '- Get previous outfits');
