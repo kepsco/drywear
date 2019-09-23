@@ -19,7 +19,7 @@ class App extends Component {
 
     axios.get('/api/outfits/today')
     .then(response => {
-      console.log(response)
+      //console.log(response)
       this.setState ({
         selected: response.data
       })

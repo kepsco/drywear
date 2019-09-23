@@ -94,3 +94,13 @@ img {
   letter-spacing: 2px;
 
 }
+.typegroup {
+  display: flex;
+  flex-wrap : wrap;
+  justify-content: center;
+}
+
+.listimage {
+  margin : 20px;
+  
+}
