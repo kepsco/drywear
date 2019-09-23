@@ -11,7 +11,7 @@ const historyController = require('./controllers/historyController');
 app.use(bodyParser.json());
 
 app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => {
-  res.status(200).json(res.locals.today);
+  res.status(200).json(res.locals);
 });
 
 app.get('/api/outfits', itemsController.availableItems, outfitsController.setOutfits, (req, res) => {
