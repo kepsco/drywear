@@ -10,6 +10,9 @@ const historyController = require('./controllers/historyController');
 
 app.use(bodyParser.json());
 
+app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => {
+  res.status(200).json(res.locals.today);
+});
 
 app.get('/api/items', itemsController.getItems, (req, res) => {
   res.status(200).json(res.locals.items);
@@ -22,7 +25,6 @@ app.get('/api/items', itemsController.getItems, (req, res) => {
 // app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
 //   res.status(200).json(res.locals);
 // });
-
 
 // Join tables to return all items information to display on frontend
 app.get('/api/history', historyController.getHistory, (req, res) => {

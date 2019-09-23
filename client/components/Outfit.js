@@ -7,6 +7,7 @@ const axios = require('axios');
 const Outfit = (props) => {
 
   const { top, bottom, shoes } = props.item;
+  
 
   function handleClick(topId, bottomId, shoesId) {
     axios.post('/api/outfits', {
@@ -18,6 +19,15 @@ const Outfit = (props) => {
       props.history.push("/history")
     }).catch(error => {
       console.log(error, '- Get outfit selection');
+    })
+
+    axios.get('/api/outfits/today')
+    .then(response => {
+      this.setState ({
+        selected: response.data
+      })
+    }).catch(error => {
+      console.log(error, '- Check current date outfit exists');
     })
   }
 

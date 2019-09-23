@@ -10,21 +10,33 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      outfits : [],
+      outfits: [],
+      selected: false,
     }
   }
 
   componentDidMount() {
-   axios.get('/api/outfits')
-   .then(response => {
-     console.log(response.data)
-     this.setState ({
-       outfits: response.data
-     })
-   }).catch(error => {
-     console.log(error, '- Get outfit selections');
-   })
-  }
+
+    axios.get('/api/outfits/today')
+    .then(response => {
+      this.setState ({
+        selected: response.data
+      })
+    }).catch(error => {
+      console.log(error, '- Check current date outfit exists');
+    })
+
+    if (!this.state.selected) {
+       axios.get('/api/outfits')
+       .then(response => {
+         this.setState ({
+           outfits: response.data
+         })
+       }).catch(error => {
+         console.log(error, '- Get outfit selections');
+       })
+      }
+    }
 
   render() {
     const outfits = []
@@ -36,12 +48,18 @@ class App extends Component {
 
     return (
       <div>
-      <h1>Select an outfit</h1>
-      <div className="container">
-        <div className="outfits-container">
-          {outfits}
-        </div>
-      </div>
+      { this.state.selected ? (
+         <h1>Today's outfit has already been selected</h1>
+       ) : (
+         <div>
+           <h1>Select an outfit</h1>
+           <div className="container">
+             <div className="outfits-container">
+               {outfits}
+             </div>
+           </div>
+         </div>
+      )}
       </div>
     );
   }

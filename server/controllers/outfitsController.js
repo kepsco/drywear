@@ -39,6 +39,18 @@ outfitsController.saveOutfit = (req, res, next) => {
   })
 }
 
+outfitsController.findTodaysOutfit = (req, res, next) => {
+  pool.query(`SELECT * FROM outfits WHERE outfits.date=NOW()`, (err, results) => {
+    if (err) {
+      console.log(err - ' outfitsController.findTodaysOutfit');
+    }
+    console.log(results.rows)
+    if (results.rows.length === 1) res.locals.today = true;
+    else res.locals.today = false;
+    next();
+  })
+}
+
 
 
 module.exports = outfitsController;
