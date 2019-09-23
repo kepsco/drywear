@@ -44,5 +44,20 @@ itemsController.updateItemsDate = (req, res, next) => {
     .catch(e => console.error(e))
 }
 
+itemsController.updateItemDates  = (req, res, next) => {
+
+  const { topId, bottomId, shoesId } = req.body;
+
+  // TODO: Change date to 8 days ago, dynamically
+  pool.query(`UPDATE items SET date='2019-09-05' WHERE id IN (${topId}, ${bottomId}, ${shoesId})`, (err, results) => {
+    if (err) {
+      console.log(err - ' outfitsController.removeOutfit');
+    }
+    console.log('Outfit successfully removed!');
+    next();
+  })
+}
+
+
 
 module.exports = itemsController;

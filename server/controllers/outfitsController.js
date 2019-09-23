@@ -54,6 +54,17 @@ outfitsController.findTodaysOutfit = (req, res, next) => {
   })
 }
 
+outfitsController.removeOutfit  = (req, res, next) => {
 
+  const { id } = req.body;
+
+  pool.query(`DELETE FROM outfits WHERE outfits.id=${id}`, (err, results) => {
+    if (err) {
+      console.log(err - ' outfitsController.removeOutfit');
+    }
+    console.log('Outfit successfully removed!');
+    next();
+  })
+}
 
 module.exports = outfitsController;

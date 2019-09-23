@@ -74,8 +74,12 @@ img {
   border: solid #efe0e0 5px;
   /* box-shadow: 5px 10px #f3e77d; */
   transition: box-shadow 0.3s ease-in-out;
-  cursor: pointer;
   max-width: 1000px;
+}
+
+.prev-outfit-delete {
+  cursor: pointer;
+  padding-right: 20px;
 }
 
 .prev-outfit-item, .prev-outfit-date {

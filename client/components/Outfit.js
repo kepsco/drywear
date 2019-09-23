@@ -8,7 +8,7 @@ class Outfit extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+
     this.state = {
       selected: this.props.selected,
     }
@@ -33,7 +33,6 @@ class Outfit extends Component {
   checkCurrentDate() {
     axios.get('/api/outfits/today')
     .then(response => {
-      console.log(response, ' >>>>>>>>>>>>>>>>> KASSANDRA')
       this.setState ({
         selected: response.data
       })

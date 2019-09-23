@@ -30,6 +30,11 @@ app.get('/api/history', historyController.getHistory, (req, res) => {
   res.status(200).json(res.locals.history);
 });
 
+app.post('/api/remove', outfitsController.removeOutfit, itemsController.updateItemDates, historyController.getHistory, (req, res) => {
+  res.status(200).send(res.locals.history);
+});
+
+
 // handle requests for static files
 // app.use('/assets', express.static(path.join(__dirname, '/../client/assets')))
 
