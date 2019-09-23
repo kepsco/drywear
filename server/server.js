@@ -10,37 +10,32 @@ const historyController = require('./controllers/historyController');
 
 app.use(bodyParser.json());
 
-
-app.get('/api/items', itemsController.getItems, (req, res) => {
-  res.status(200).json(res.locals.items);
+app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => {
+  res.status(200).json(res.locals.today);
 });
-
-// app.post('/api/item', itemsController.addItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
-
-// app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
-
-
-// Join tables to return all items information to display on frontend
-//
-// app.get('/api/history', historyController.getHistory, (req, res) => {
-//   res.status(200).json(res.locals.history);
-// });
-//
-// app.post('/api/history', historyController.saveOutfit, itemsController.updateItems, (req, res) => {
-//   res.status(200).send('Saved outfit and update items date!';
-// });
 
 app.get('/api/outfits', itemsController.availableItems, outfitsController.setOutfits, (req, res) => {
   res.status(200).json(res.locals.outfits);
 });
 
-/**
- * handle requests for static files
- */
+app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateItemsDate, (req, res) => {
+  res.status(200).send('Saved outfit and updated items date.');
+});
+
+app.get('/api/items', itemsController.getItems, (req, res) => {
+  res.status(200).json(res.locals.items);
+});
+
+app.get('/api/history', historyController.getHistory, (req, res) => {
+  res.status(200).json(res.locals.history);
+});
+
+app.post('/api/remove', outfitsController.removeOutfit, itemsController.updateItemDates, historyController.getHistory, (req, res) => {
+  res.status(200).send(res.locals.history);
+});
+
+
+// handle requests for static files
 // app.use('/assets', express.static(path.join(__dirname, '/../client/assets')))
 
 app.get('/', (req, res) => {

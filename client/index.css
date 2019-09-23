@@ -1,10 +1,34 @@
 body {
   text-align: center;
-  color:blueviolet;
-  background-image: url("/images/backgroundimage.png");
+  /* color: blueviolet; */
+  /* font-family: 'Source Code Pro', monospace; */
+  font-family: 'Darker Grotesque', sans-serif;
+  /* background-image: url("/images/backgroundimage.png"); */
 }
 
-.otherOutfits {
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.navigation {
+  margin-top: 40px;
+}
+
+.navigation a {
+  text-decoration: none;
+  margin: 20px;
+  color: black;
+  font-size: 18px;
+}
+
+
+.main-outfit {
+  margin: 30px;
+}
+
+.outfits-container {
  display: flex;
  justify-content: center;
 }
@@ -30,4 +54,43 @@ img {
 
 .outfit-block:hover {
   box-shadow: 5px 10px #333;
+}
+
+
+.previous-outfits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.prev-outfit-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+  padding-top: 25px;
+  border: solid #efe0e0 5px;
+  /* box-shadow: 5px 10px #f3e77d; */
+  transition: box-shadow 0.3s ease-in-out;
+  max-width: 1000px;
+}
+
+.prev-outfit-delete {
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.prev-outfit-item, .prev-outfit-date {
+  padding: 0 30px;
+}
+
+.prev-outfit-date {
+  margin-right: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
 }

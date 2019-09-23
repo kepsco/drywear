@@ -5,6 +5,7 @@ const itemsController = {};
 
 
 itemsController.getItems = (req, res, next) => {
+
   pool.query('SELECT * FROM items', (err, results) => {
     if (err) {
       res.send(err)
@@ -15,8 +16,7 @@ itemsController.getItems = (req, res, next) => {
 }
 
 itemsController.availableItems = (req, res, next) => {
-
-  pool.query("SELECT * FROM items WHERE type='shoes' AND date < NOW() - INTERVAL '7 days'")
+  pool.query("SELECT * FROM items WHERE type='shoes'")
     .then(results => {
       res.locals.items = {};
       res.locals.items.shoes = results.rows;
@@ -33,18 +33,31 @@ itemsController.availableItems = (req, res, next) => {
     .catch(e => console.error(e))
 }
 
-itemsController.updateItems = (req, res, next) => {
+itemsController.updateItemsDate = (req, res, next) => {
 
-  const { bottomId, topId, shoesId } = req.body;
+  const { top, bottom, shoes } = req.body;
 
-
-    pool.query("UPDATE items SET date=NOW() WHERE id IN ( bottomId, topId, shoesId )")
-      .then(results => {
-        console.log(results)
-        next();
-      })
-      .catch(e => console.error(e))
+    pool.query(`UPDATE items SET date=NOW() WHERE id IN ( ${top}, ${bottom}, ${shoes} )`)
+    .then(results => {
+      next();
+    })
+    .catch(e => console.error(e))
 }
+
+itemsController.updateItemDates  = (req, res, next) => {
+
+  const { topId, bottomId, shoesId } = req.body;
+
+  // TODO: Change date to 8 days ago, dynamically
+  pool.query(`UPDATE items SET date='2019-09-05' WHERE id IN (${topId}, ${bottomId}, ${shoesId})`, (err, results) => {
+    if (err) {
+      console.log(err - ' outfitsController.removeOutfit');
+    }
+    console.log('Outfit successfully removed!');
+    next();
+  })
+}
+
 
 
 module.exports = itemsController;
