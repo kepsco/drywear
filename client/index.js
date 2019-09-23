@@ -11,10 +11,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 ReactDOM.render(
+  <div>
+  <div> NAVIGATION HERE</div>
   <Router>
     <Route path="/" exact component={App} />
     <Route path="/list" component={List} />
     <Route path="/history" component={History} />
-  </Router>,
+  </Router></div>,
 document.getElementById('root')
 );

@@ -30,9 +30,10 @@ class App extends Component {
 
   render() {
     const outfits = []
+    console.log(this.state.outfits)
     if(this.state.outfits.length > 0){
       this.state.outfits.map(x => {
-        console.log(x.top.image)
+        //console.log(x.top.image)
         outfits.push(<Outfit item={x} />)
       })
     }
