@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styles from "../index.css";
 const axios = require('axios');
 import Outfit from './Outfit';
+import FeaturedOutfit from './FeaturedOutfit';
 import Select from 'react-select';
 
 
 const options = [
-  // { value: null, label: '---' },
   { value: 'cold', label: 'Cold' },
   { value: 'hot', label: 'Hot' },
 ];
@@ -20,6 +20,7 @@ class App extends Component {
       outfits: [],
       selected: false,
       selectedWeather: null,
+      todaysOutfit: [],
     }
 
     this.handleWeather = this.handleWeather.bind(this);
@@ -30,9 +31,10 @@ class App extends Component {
     // Check if today's outfit is selected, change select state to true
     axios.get('/api/outfits/today')
     .then(response => {
-      //console.log(response)
+      console.log(response.data)
       this.setState ({
-        selected: response.data
+        selected: response.data.today,
+        todaysOutfit: response.data.outfit
       })
     }).catch(error => {
       console.log(error, '- Check current date outfit exists');
@@ -97,7 +99,10 @@ class App extends Component {
     return (
       <div>
       { this.state.selected ? (
-         <h1>Today's outfit has already been selected</h1>
+        <div>
+         <h1 className="featured-text">Today's outfit has already been selected</h1>
+         <FeaturedOutfit item={this.state.todaysOutfit[0]} selected={this.state.selected} />
+        </div>
        ) : (
          <div>
            <h1>Select an outfit</h1>
