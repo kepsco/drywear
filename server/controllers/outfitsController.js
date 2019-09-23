@@ -1,8 +1,6 @@
 const { pool } = require('../config')
 
-
 const outfitsController = {};
-
 
 outfitsController.setOutfits = (req, res, next) => {
 
@@ -26,8 +24,5 @@ outfitsController.setOutfits = (req, res, next) => {
     }
     next();
 }
-
-
-
 
 module.exports = outfitsController;

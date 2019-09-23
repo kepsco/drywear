@@ -2,22 +2,46 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const PORT = 3000;
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.resolve(__dirname, './uploads'))
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+});
+// const storage = multer.memoryStorage(); // saves file into req.file.buffer
+const upload = multer({ storage });
 
 const itemsController = require('./controllers/itemsController');
 const outfitsController = require('./controllers/outfitsController');
 const historyController = require('./controllers/historyController');
 
-app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/api/items', itemsController.getItems, (req, res) => {
   res.status(200).json(res.locals.items);
 });
 
-// app.post('/api/item', itemsController.addItem, (req, res) => {
-//   res.status(200).json(res.locals);
-// });
+app.post('/api/items', upload.single('image'), itemsController.addItem, (req, res) => {
+  if (req.file) {
+    console.log('in post req for /api/items', req.file)
+    return res.json({imageUrl: `api/uploads/${req.file.originalname}`});
+  }
+  res.status(409).json('no files')
+});
+
+app.get('/api/uploads/', itemsController.getUploads, (req, res) => {
+  // console.log('in get handling for /api/upload', req.params.file)
+  // res.sendFile(path.resolve(__dirname, './uploads/', req.params.file))
+  res.sendFile(path.resolve(__dirname, './uploads', res.locals.uploads))
+})
 
 // app.delete('/api/item/:id', usersController.deleteItem, (req, res) => {
 //   res.status(200).json(res.locals);
