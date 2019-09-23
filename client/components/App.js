@@ -5,7 +5,6 @@ const axios = require('axios');
 import Outfit from './Outfit';
 
 
-
 class App extends Component {
 
   constructor(props) {
@@ -16,17 +15,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-
    axios.get('/api/outfits')
    .then(response => {
+     console.log(response.data)
      this.setState ({
        outfits: response.data
      })
    }).catch(error => {
-     console.log(error, '- Get outfit selection');
+     console.log(error, '- Get outfit selections');
    })
   }
-
 
   render() {
     const outfits = []

@@ -34,10 +34,8 @@ app.get('/api/outfits', itemsController.availableItems, outfitsController.setOut
 });
 
 app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateItemsDate, (req, res) => {
-  res.status(200).send('Saved outfit and update items date!');
+  res.status(200).send('Saved outfit and updated items date.');
 });
-
-
 
 // handle requests for static files
 // app.use('/assets', express.static(path.join(__dirname, '/../client/assets')))

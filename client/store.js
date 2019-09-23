@@ -12,9 +12,9 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  saveState({
-    item: store.getState().items,
-  });
+  // saveState({
+  //   item: store.getState().items,
+  // });
 });
 
 export default store;

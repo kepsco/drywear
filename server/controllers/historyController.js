@@ -16,7 +16,7 @@ historyController.getHistory = (req, res, next) => {
     if (err) {
       throw err
     }
-    res.locals.history = results.rows;
+    res.locals.history = results.rows.sort((a, b) => b.date - a.date);
     next();
   })
 }
