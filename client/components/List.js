@@ -70,7 +70,6 @@ class List extends Component {
     data.append("isFormal", this.state.isFormal);
     data.append("image", this.state.image);
     // Make an AJAX upload request using Axios
-    console.log('data', data, this.state.image);
     axios.post('/api/items', data)
       .then(response => {
         this.setState({
@@ -109,14 +108,12 @@ class List extends Component {
     const shoes =[];
 
     for(let i = 0; i < this.state.items.length; i++){
-      //console.log(this.state.items)
       if(this.state.items[i].type === "top")
       tops.push(indvoutfit(this.state.items[i]))
       if(this.state.items[i].type === "bottom")
       bottom.push(indvoutfit(this.state.items[i]))
       if(this.state.items[i].type === "shoes")
       shoes.push(indvoutfit(this.state.items[i]))
-
     }
 
 
@@ -144,7 +141,6 @@ class List extends Component {
           <div className ="typegroup"> {bottom}</div>
         <h1>SHOES</h1>
           <div className ="typegroup"> {shoes}</div>
-
 
           <h2>Add New Item</h2>
           <form encType="multipart/form-data" >
@@ -185,6 +181,6 @@ class List extends Component {
 }
 
 function indvoutfit(props){
-  return  <img className = "listimage" src={props.image} />
+  return <img className = "listimage" src={props.image} />
 }
 export default List;

@@ -52,7 +52,6 @@ class App extends Component {
     }
 
   handleWeather(weather) {
-    console.log(weather)
     this.setState({ weather });
     axios.post('/api/filterOutfits', {
       weather: weather
@@ -69,7 +68,7 @@ class App extends Component {
 
   render() {
 
-    const { selectedWeather } = this.state;
+    const { weather } = this.state;
 
     const outfits = []
     console.log(this.state.outfits)
@@ -107,7 +106,7 @@ class App extends Component {
            <div className="container">
            <div className="select-weather">
               <Select
-                value={selectedWeather}
+                value={weather}
                 onChange={this.handleWeather}
                 options={options}
                 styles={customStyles}
