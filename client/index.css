@@ -101,9 +101,21 @@ img {
   display: block;
 }
 
-.css-1n7v3ny-option {
-  background-color: #ebebeb;
+.featured-outfit {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 80px;
 }
+
+.featured-outfit img {
+  width: 400px;
+}
+
+.featured-text {
+  margin-top: 100px;
+}
+
 .typegroup {
   display: flex;
   flex-wrap : wrap;
