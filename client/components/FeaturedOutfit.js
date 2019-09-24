@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 const axios = require('axios');
 import Moment from 'react-moment';
 
+
 class FeaturedOutfit extends Component {
 
   constructor(props) {

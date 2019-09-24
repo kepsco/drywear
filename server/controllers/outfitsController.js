@@ -1,8 +1,6 @@
 const { pool } = require('../config')
 
-
 const outfitsController = {};
-
 
 outfitsController.setOutfits = (req, res, next) => {
 
@@ -28,7 +26,7 @@ outfitsController.setOutfits = (req, res, next) => {
 
 
 outfitsController.saveOutfit = (req, res, next) => {
-
+  console.log(req.body);
   const { top, bottom, shoes } = req.body;
 
   pool.query(`INSERT INTO outfits(top_id, bottom_id, shoes_id) VALUES(${top}, ${bottom}, ${shoes})`, (err, results) => {

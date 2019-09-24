@@ -94,7 +94,7 @@ img {
   letter-spacing: 2px;
 }
 
-.select-weather {
+.select-weather, .select-item {
   max-width: 200px;
   margin-left: auto;
   margin-right: auto;
@@ -124,4 +124,18 @@ img {
 
 .listimage {
   margin : 20px;
+  
+}
+
+form {
+  padding: 20px;
+}
+
+.select-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 25px;
 }

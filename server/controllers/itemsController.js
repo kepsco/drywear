@@ -37,7 +37,7 @@ itemsController.availableItems = (req, res, next) => {
 itemsController.filterOutfits = (req, res, next) => {
 
   let filter;
-  console.log(req.body.weather)
+  console.log(req.body)
   if (req.body.weather) {
     filter = ` AND weather = '${req.body.weather.value}' `;
   }
@@ -59,6 +59,7 @@ itemsController.filterOutfits = (req, res, next) => {
     .catch(e => console.error(e))
 }
 
+// changes date of items that were selected
 itemsController.updateItemsDate = (req, res, next) => {
 
   const { top, bottom, shoes } = req.body;
@@ -70,6 +71,7 @@ itemsController.updateItemsDate = (req, res, next) => {
     .catch(e => console.error(e))
 }
 
+// updates dates of items for deleted outfit in history
 itemsController.updateItemDates  = (req, res, next) => {
 
   const { topId, bottomId, shoesId } = req.body;
@@ -84,6 +86,27 @@ itemsController.updateItemDates  = (req, res, next) => {
   })
 }
 
+itemsController.addItem = (req, res, next) => {
+
+  const {color, type, weather, isFormal} = req.body;
+
+  pool.query(`INSERT INTO items (file, type, weather, formal, color) VALUES('${req.file.filename}', '${type}', '${weather}', '${isFormal}', '${color}')`)
+    .then(resp =>{
+      console.log('successful img upload to db!', resp);
+      return next();
+    })
+    .catch(e => console.error('unsuccessful img insertion to db', e));
+}
+
+itemsController.getUploads = (req, res, next) => {
+
+  pool.query(`SELECT image FROM items`, (err, results) => {
+    if (err) return next({log: 'Error getting images from DB', message: 'Error in getUploads'});
+
+    res.locals.uploads = results.rows[2].imgfile_name;
+    next();
+  })
+}
 
 
 module.exports = itemsController;
