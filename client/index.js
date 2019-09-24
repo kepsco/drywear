@@ -12,9 +12,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 ReactDOM.render(
   <div>
-  
     <Router>
-    <div>
+    <div className="navigation">
       <Link to="/">Home</Link>
       <Link to="/list">List</Link>
       <Link to="/history">History</Link>
