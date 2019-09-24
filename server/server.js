@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
   }
 });
 
-// const storage = multer.memoryStorage(); // saves file into req.file.buffer
 const upload = multer({ storage });
 
 const itemsController = require('./controllers/itemsController');
@@ -23,10 +22,8 @@ const outfitsController = require('./controllers/outfitsController');
 const historyController = require('./controllers/historyController');
 
 
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.json());
-// app.use(multer({dest:'./uploads'}).single('image'));
-
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => {
@@ -38,20 +35,16 @@ app.get('/api/outfits', itemsController.availableItems, outfitsController.setOut
 });
 
 app.post('/api/items', upload.single('image'), itemsController.addItem, (req, res) => {
-
-  // console.log(req.body)
   if (req.file) {
-    // console.log('in post req for /api/items', req.file)
     return res.json({imageUrl: `api/uploads/${req.file.filename}`});
   }
   res.status(409).json('no files')
 });
 
 app.get('/api/uploads/:file', itemsController.getUploads, (req, res) => {
-  // console.log('in get handling for /api/upload', req.params.file)
   res.sendFile(path.resolve(__dirname, './uploads/', req.params.file))
-  // res.sendFile(path.resolve(__dirname, './uploads', res.locals.uploads))
-})
+});
+
 app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateItemsDate, (req, res) => {
   res.status(200).send('Saved outfit and updated items date.');
 });
@@ -71,10 +64,6 @@ app.get('/api/history', historyController.getHistory, (req, res) => {
 app.post('/api/remove', outfitsController.removeOutfit, itemsController.updateItemDates, historyController.getHistory, (req, res) => {
   res.status(200).send(res.locals.history);
 });
-
-
-// handle requests for static files
-// app.use('/assets', express.static(path.join(__dirname, '/../client/assets')))
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));

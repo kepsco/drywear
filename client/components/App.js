@@ -19,7 +19,7 @@ class App extends Component {
     this.state = {
       outfits: [],
       selected: false,
-      selectedWeather: null,
+      weather: null,
       todaysOutfit: [],
     }
 
@@ -27,11 +27,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     // Check if today's outfit is selected, change select state to true
     axios.get('/api/outfits/today')
     .then(response => {
-      console.log(response.data)
       this.setState ({
         selected: response.data.today,
         todaysOutfit: response.data.outfit
@@ -53,11 +51,11 @@ class App extends Component {
       }
     }
 
-  handleWeather(selectedWeather) {
-    this.setState({ selectedWeather });
-
+  handleWeather(weather) {
+    console.log(weather)
+    this.setState({ weather });
     axios.post('/api/filterOutfits', {
-      weather: selectedWeather
+      weather: weather
     })
     .then(response => {
       this.setState ({

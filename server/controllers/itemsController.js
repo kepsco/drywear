@@ -37,7 +37,7 @@ itemsController.availableItems = (req, res, next) => {
 itemsController.filterOutfits = (req, res, next) => {
 
   let filter;
-  console.log(req.body.weather)
+  console.log(req.body)
   if (req.body.weather) {
     filter = ` AND weather = '${req.body.weather.value}' `;
   }
@@ -87,7 +87,7 @@ itemsController.updateItemDates  = (req, res, next) => {
 }
 
 itemsController.addItem = (req, res, next) => {
-  
+
   const {color, type, weather, isFormal} = req.body;
 
   pool.query(`INSERT INTO items (file, type, weather, formal, color) VALUES('${req.file.filename}', '${type}', '${weather}', '${isFormal}', '${color}')`)

@@ -55,12 +55,7 @@ class List extends Component {
    }
 
   selectImages(event) {
-
-    console.log('in selectImages', event.target.files[0].name)
-
     let image = event.target.files[0];
-    console.log(image, image.name);
-
     if(image.name.match(/\.(jpg|jpeg|png|gif)$/)) {
       this.setState({ image })
     }
@@ -112,7 +107,7 @@ class List extends Component {
     const tops = [];
     const bottom =[];
     const shoes =[];
-    
+
     for(let i = 0; i < this.state.items.length; i++){
       //console.log(this.state.items)
       if(this.state.items[i].type === "top")
@@ -121,7 +116,7 @@ class List extends Component {
       bottom.push(indvoutfit(this.state.items[i]))
       if(this.state.items[i].type === "shoes")
       shoes.push(indvoutfit(this.state.items[i]))
-      
+
     }
 
 
@@ -155,10 +150,10 @@ class List extends Component {
           <form encType="multipart/form-data" >
           <input type="file" name="image" onChange={this.selectImages} />
           <div className="select-item">
-            <Select 
-              value={type} 
-              onChange={this.handleSelectItemType} 
-              options={options} 
+            <Select
+              value={type}
+              onChange={this.handleSelectItemType}
+              options={options}
               styles={customStyles}
             />
           </div>
@@ -177,7 +172,7 @@ class List extends Component {
           <button value="Submit" onClick={this.handleSubmit}>Submit</button>
         </form>
 
-        {this.state.imageUrl && ( 
+        {this.state.imageUrl && (
         <div>
           <img src={BASE_URL + this.state.imageUrl} alt="not available"/>
           <br/>
