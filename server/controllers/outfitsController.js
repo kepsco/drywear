@@ -2,6 +2,9 @@ const { pool } = require('../config')
 
 const outfitsController = {};
 
+// receives all available items in res.locals.items
+// randomly generates 5 combinations (not necessarily different)
+// stores these combinations as objects in an outfits array
 outfitsController.setOutfits = (req, res, next) => {
 
     res.locals.outfits = [];
@@ -37,6 +40,7 @@ outfitsController.saveOutfit = (req, res, next) => {
   })
 }
 
+// reads from the outfits and items tables to find today's outfit (if there is one)
 outfitsController.findTodaysOutfit = (req, res, next) => {
 
   const today = new Date().toISOString().slice(0,10);
@@ -53,7 +57,7 @@ outfitsController.findTodaysOutfit = (req, res, next) => {
     if (err) {
       console.log(err - ' outfitsController.findTodaysOutfit');
     }
-    console.log(results.rows)
+    // console.log(results.rows)
     if (results.rows === undefined) res.locals.today = false;
     else if (results.rows.length >= 1) {
       res.locals.today = true;

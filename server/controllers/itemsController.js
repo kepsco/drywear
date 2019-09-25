@@ -15,6 +15,8 @@ itemsController.getItems = (req, res, next) => {
   })
 }
 
+// sends back an items object stored on res.locals that has shoes, tops and bottoms properties
+// all shoes are selected, and tops and bottoms that haven't been worn in the last 7 days are selected
 itemsController.availableItems = (req, res, next) => {
 
   pool.query(`SELECT * FROM items WHERE type='shoes'`)
@@ -37,7 +39,7 @@ itemsController.availableItems = (req, res, next) => {
 itemsController.filterOutfits = (req, res, next) => {
 
   let filter;
-  console.log(req.body)
+  // console.log(req.body)
   if (req.body.weather) {
     filter = ` AND weather = '${req.body.weather.value}' `;
   }
@@ -86,6 +88,7 @@ itemsController.updateItemDates  = (req, res, next) => {
   })
 }
 
+// properties sent from the client in req.body are inserted into database
 itemsController.addItem = (req, res, next) => {
 
   const {color, type, weather, isFormal} = req.body;
@@ -98,11 +101,12 @@ itemsController.addItem = (req, res, next) => {
     .catch(e => console.error('unsuccessful img insertion to db', e));
 }
 
+// 
 itemsController.getUploads = (req, res, next) => {
 
   pool.query(`SELECT image FROM items`, (err, results) => {
     if (err) return next({log: 'Error getting images from DB', message: 'Error in getUploads'});
-
+    console.log('results is', results)
     res.locals.uploads = results.rows[2].imgfile_name;
     next();
   })
