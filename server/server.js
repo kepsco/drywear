@@ -6,6 +6,9 @@ const cors = require('cors');
 const PORT = 3000;
 const multer = require('multer');
 
+/* multer method is passed object with destination and filename properties with functions as values
+object returned is stored as storage
+*/
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.resolve(__dirname, './uploads'))
@@ -26,14 +29,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
+/* sends back today's outfit (date, ids and images) if there is one and a boolean in res.locals */
 app.get('/api/outfits/today', outfitsController.findTodaysOutfit, (req, res) => {
   res.status(200).json(res.locals);
 });
 
+// sends back 5 possible outfits as an array of objects
 app.get('/api/outfits', itemsController.availableItems, outfitsController.setOutfits, (req, res) => {
   res.status(200).json(res.locals.outfits);
 });
 
+// cannot upload a new image without getting 400 error
+// returns an image url
 app.post('/api/items', upload.single('image'), itemsController.addItem, (req, res) => {
   if (req.file) {
     return res.json({imageUrl: `api/uploads/${req.file.filename}`});
@@ -41,14 +48,15 @@ app.post('/api/items', upload.single('image'), itemsController.addItem, (req, re
   res.status(409).json('no files')
 });
 
-app.get('/api/uploads/:file', itemsController.getUploads, (req, res) => {
-  res.sendFile(path.resolve(__dirname, './uploads/', req.params.file))
-});
+// app.get('/api/uploads/:file', itemsController.getUploads, (req, res) => {
+//   res.sendFile(path.resolve(__dirname, './uploads/', req.params.file))
+// });
 
 app.post('/api/outfits', outfitsController.saveOutfit, itemsController.updateItemsDate, (req, res) => {
   res.status(200).send('Saved outfit and updated items date.');
 });
 
+// Darren commenting
 app.post('/api/filterOutfits', itemsController.filterOutfits, outfitsController.setOutfits, (req, res) => {
   res.status(200).json(res.locals.outfits);
 });
